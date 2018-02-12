@@ -1,0 +1,98 @@
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+	<h:panelGroup id="user_main"  layout="block">
+		<h:form id="users_block" styleClass="user_selector">
+			<div class="user_block_header ui-widget-header">Выберите пользователя</div>
+			<p:selectOneListbox 
+			 		id="user_selection" 
+			 		class="user_selection"
+		            filter="true" 
+		            filterMatchMode="contains"
+		            value="#{userManager.selectedUserId}" >
+				<p:ajax  ignoreAutoUpdate="true"
+		        		
+		        		process="@this"
+						update="@(#user_edit_block)"
+		        		listener="#{userManager.initUserEdit()}"/>
+	            <f:selectItems value="#{userManager.allUsers}" var="user"
+	 					itemLabel="#{user.userLogin}" itemValue="#{user.userId}">	
+	 			</f:selectItems>
+	    	</p:selectOneListbox>
+		   	<div id="users_btns" class="user_btn_block">
+				<p:commandButton 
+						disabled="#{facesContext.validationFailed}"	
+						value="Добавить"
+						update=":user_edit_block"
+						actionListener="#{userManager.initCreateUser()}" />
+				<p:commandButton
+						disabled="#{facesContext.validationFailed}"
+						value="Удалить" 
+						update="user_selection :user_edit_block user_edit_block:user_update_messages" 
+						actionListener="#{userManager.deleteUser()}" />
+	    	</div>
+		</h:form>
+		<h:form id="user_edit_block">
+			<div class="user_block_header ui-widget-header">
+					<h:outputLabel id="user_edit_label" value="#{userManager.userLabel}" />
+			</div>
+			<h:panelGroup id="user_info_block"  styleClass="user_info_block" layout="block">
+				
+				<div id="user_fields">
+					<h:inputHidden id="user_id" value="#{userManager.userId}" />
+		            <div class="user_field">
+			            <div>
+			            	<h:outputLabel for="username" value="Имя пользователя:" />
+			            </div>
+		            	<p:inputText id="username" value="#{userManager.username}" />
+		            </div>
+		            
+					<div class="user_field">		            
+			            <div>
+			            	<p:outputLabel for="password" value="Пароль:" />
+			            </div>
+			            <p:inputText id="password" value="#{userManager.password}" />
+		 			</div>
+		 			
+		 			<div class="user_field">    
+			 			<div>
+			            	<p:outputLabel for="fio" value="ФИО" />
+			            </div>
+			            <p:inputText id="fio" value="#{userManager.fio}" />
+     			 	</div>
+     			 	
+     			 	<div class="user_field">
+	     			 	<div>
+			            	<p:outputLabel for="removeState" value="Статус удаления:" />
+	                   		<p:selectBooleanButton id="removeState" value="#{userManager.userRemoveState}" onLabel="Удален" offLabel="Не удален"  />
+	 			        </div>
+		            </div>
+				</div>
+				<div id="user_roles_block">
+				
+
+	             	<p:pickList 
+	             			
+	             			style="height: 100%"
+	             			id="rolesPickList" value="#{userManager.rolesModel}" 
+	             			var="role" itemLabel="#{role.roleName}" itemValue="#{role}" 
+	             			converter="#{roleConverter}"
+	             			>
+	             		<f:facet name="sourceCaption">Все роли</f:facet>
+				        <f:facet name="targetCaption">Назначенные</f:facet>
+	             	</p:pickList>
+				</div>
+			
+			</h:panelGroup>
+			<p:messages id="user_update_messages" showDetail="true" closable="true" />
+			<div id="user_save_btn_block" class="user_btn_block">
+					<p:commandButton value="Сохранить" actionListener="#{userManager.saveUser()}"  
+							update="user_edit_label :users_block:user_selection user_id user_info_block user_update_messages" />
+			</div>
+			
+		</h:form>
+	</h:panelGroup>
+</html>

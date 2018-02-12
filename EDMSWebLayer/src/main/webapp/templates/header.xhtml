@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+	<div id="header_table">
+		<h:graphicImage id="logo" library="img" name="logo.png" />
+		<div id="hello_user">
+                    <span>Welcome, <b>#{authController.userFio}.</b></span>
+		</div>
+		<h:form id="exit_form">
+			<h:commandLink action="#{authController.logout}"  id="exit_btn">
+				<div><h:graphicImage id="exit_img" library="img" name="exit.png" /></div>
+				<div>Exit</div>
+			</h:commandLink>
+		</h:form>
+	</div>
+
+</html>

@@ -1,0 +1,22 @@
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+   
+    
+	<h:form id="admin_form">
+	   	<div>
+		   	<p:commandLink id="toUsers" update="right" actionListener="#{mainPageController.setRightTemplate('admin/users.xhtml')}">
+		        <h:outputText value="Работа с пользователями" />
+		    </p:commandLink>
+	    </div>
+		<div>
+		    <p:commandLink id="toRoles" update="right" actionListener="#{mainPageController.setRightTemplate('admin/roles.xhtml')}">
+		        <h:outputText value="Работа с ролями" />
+		    </p:commandLink>
+		</div>
+	</h:form>
+</html>

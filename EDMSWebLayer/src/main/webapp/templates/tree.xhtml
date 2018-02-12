@@ -1,0 +1,22 @@
+<html 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	>
+
+	
+	
+	<div id="tree_container">
+		<h:form>
+                    <p:tree value="#{leftTreeController.root}" var="node" dynamic="true" selectionMode="single" selection="#{leftTreeController.selectedNode}" onNodeClick="#{documentsController.nodeTitle}"> 
+				<p:ajax event="select" update="right" listener="#{leftTreeController.onNodeSelect}" />		
+				<p:treeNode expandedIcon="ui-icon ui-icon-folder-open"
+						collapsedIcon="ui-icon ui-icon-folder-collapsed">					
+					<h:outputText value="#{node}"/>
+				</p:treeNode>
+		    </p:tree>
+		</h:form>
+	</div>
+</html>

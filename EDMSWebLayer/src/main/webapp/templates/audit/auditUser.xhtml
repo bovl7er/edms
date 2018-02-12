@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+ 
+        <h:panelGroup layout="block" id="auditContent">
+            <h:panelGroup layout="block" styleClass="filter" id="auditFilter" >
+                <h:form prependId="false" id="auditFilterForm">
+                    <h:panelGrid columns="4">
+                        <h:panelGroup layout="block" styleClass="filterDiv">
+                            <p:outputLabel for="startDate" value="с" styleClass="filterDiv" />
+                            <p:inputMask id="startDate" value="#{searchController.startDate}" mask="99.99.9999" style="width: 100px;" styleClass="filterDiv">
+                                <f:convertDateTime pattern="d.M.yyyy" />
+                            </p:inputMask>
+                            <p:outputLabel for="endDate" value="по" styleClass="filterDiv" />
+                            <p:inputMask id="endDate" value="#{searchController.endDate}" mask="99.99.9999" style="width: 100px;" styleClass="filterDiv">
+                                <f:convertDateTime pattern="d.M.yyyy" />
+                            </p:inputMask>
+                        </h:panelGroup>
+                        <h:commandButton value="Показать" styleClass="submit filterButton filterDiv" actionListener="#{searchController.filterAudit}">
+                            <f:ajax execute="@all" render="auditTable"/>
+                        </h:commandButton>
+                        <h:panelGroup layout="block" styleClass="filterDiv" style="width: 200px;">
+                            <p:growl autoUpdate="true"/>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup layout="block" id="auditTable">
+                <h:panelGroup layout="block" id="subAuditTable">
+                    <h:panelGroup layout="block" id="auditTableUser">
+                        <p:dataTable var="auditUser" value="#{mainPageController.lazyAuditUserModel}" paginator="true" rows="15" 
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,15,20" lazy="true">
+                            <p:column headerText="Дата изменения">
+                                <h:outputText value="#{auditUser.changingDate}" />
+                            </p:column>
+                            <p:column headerText="Действие">
+                                <h:outputText value="#{auditUser.changingName}" />
+                            </p:column>
+                            <p:column headerText="Прежняя ФИО">
+                                <h:outputText value="#{auditUser.oldFio}" />
+                            </p:column>
+                            <p:column headerText="Текущая ФИО">
+                                <h:outputText value="#{auditUser.newFio}" />
+                            </p:column>
+                            <p:column headerText="Прежний логин">
+                                <h:outputText value="#{auditUser.oldLogin}" />
+                            </p:column>
+                            <p:column headerText="Новый логин">
+                                <h:outputText value="#{auditUser.newLogin}" />
+                            </p:column>
+                            <p:column headerText="Прежний пароль">
+                                <h:outputText value="#{auditUser.oldPass}" />
+                            </p:column>
+                            <p:column headerText="Новый пароль">
+                                <h:outputText value="#{auditUser.newPass}" />
+                            </p:column>
+                            <p:column headerText="Прежний статус">
+                                <h:outputText value="#{auditUser.oldRemoveState}" />
+                            </p:column>
+                            <p:column headerText="Новый статус">
+                                <h:outputText value="#{auditUser.newRemoveState}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
+</html>
+

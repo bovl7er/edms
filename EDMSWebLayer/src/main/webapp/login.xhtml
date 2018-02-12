@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h:outputStylesheet library="css" name="login.css"/>
+		<title>Login</title>
+	</h:head>
+	
+	<h:body id="login_body">
+		<h:panelGroup layout="block" styleClass="panel">
+			<h:panelGroup layout="block" styleClass="row">
+				<h:panelGroup layout="block" styleClass="col">
+					<h:panelGroup layout="block" styleClass="logo">
+						<h:graphicImage url="resources/img/logo.png"/>
+						<h:panelGroup layout="block" styleClass="col form-cell" style="padding: 15px !important;">
+							<h:panelGroup layout="block" styleClass="muted">
+								<h:panelGroup style="font-size: 12px"> 
+                                                                    <h:panelGroup style="white-space: nowrap">
+                                                                        <h:outputText  value="У нас будет свой «МИР»,"/><br/>
+									<h:outputText value="с блэкджеком и шлюхами!"/><br/>
+									<h:form target="_blank">
+                                                                            <h:outputLink  value="http://lurkmore.to/%D0%91%D0%BB%D1%8D%D0%BA%D0%B4%D0%B6%D0%B5%D0%BA_%D0%B8_%D1%88%D0%BB%D1%8E%D1%85%D0%B">
+										<h:outputText value="Бендер(с)"/>
+                                                                            </h:outputLink>
+									</h:form>
+                                                                    </h:panelGroup>	
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="col form-cell">
+					<h:panelGroup layout="block" styleClass="table-view form-title">
+						<h:panelGroup layout="block" styleClass="cell">
+							<h:outputText value="Регистрация"/>
+						</h:panelGroup>
+					</h:panelGroup>
+					<h:form>
+						<p:growl id="growl" showDetail="true" sticky="true" />  
+						<h:panelGroup layout="block" id="loginWindow">
+							<h:panelGroup layout="block">
+								<h:panelGroup layout="block">
+									<h:inputText id="login_user" value="#{authController.user}" required="true"/>
+									<p:watermark for="login_user" value="Пользователь" id="watermark_user" />
+								</h:panelGroup>
+								<h:panelGroup layout="block">
+									<h:inputSecret id="login_password" value="#{authController.pwd}" required="true"/>
+									<p:watermark for="login_password" value="Пароль" id="watermark_pass" />
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="table-view">
+									<h:panelGroup layout="block" styleClass="cell text-right">
+										<h:commandButton action="#{authController.validateUsernamePassword}"  styleClass="submit" value="Войти"/>
+									</h:panelGroup>
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:form>
+					<h:panelGroup layout="block" styleClass="muted">
+						<h:panelGroup styleClass="footer_left">
+							<h:panelGroup style="white-space: pre-wrap">
+                                                            <h:outputText  value="Информацию о системе «МИР 3.0»"/><br/>
+                                                            <h:outputText  value="Вы можете найти на официальном сайте "/><br/>
+                                                            <h:outputLink value="http://www.cinimex.ru"><h:outputText value="www.cinimex.ru"/></h:outputLink>
+                                                        </h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:body>
+    
+</html>

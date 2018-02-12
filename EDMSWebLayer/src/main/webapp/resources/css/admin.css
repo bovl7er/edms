@@ -1,0 +1,162 @@
+
+
+#user_main {
+   	padding-top: 10px;
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.user_selector {
+    margin: 0px 10px 0px 10px;
+	display: flex;
+    flex-basis: 200px;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.user_block_header {
+	text-align: center;
+}
+
+#user_main .ui-selectonelistbox {
+	padding: 0px;
+    width: 100%;
+    box-sizing: border-box;
+	
+}
+
+.user_btn_block {
+    margin: 10px 0px 10px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+#user_main .ui-button-text {
+	font-size: small;
+}
+
+/*�������� ���� ��������� ����� ���� ��������*/
+#user_main .ui-widget {
+	font-size: small;
+}
+
+.user_info_block {
+	flex: 1;
+	display: flex;
+	justify-content: space-between;
+}
+#user_roles_block {
+    justify-content: space-between;
+    display: flex;
+}
+
+#user_edit_block {
+	flex: 1;
+	margin: 0px 10px 0px 10px;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+#user_roles_block {
+	max-heigth: inherit;
+}
+/* ����� ������� �� ������� �� ������� */
+#user_roles_block .ui-picklist-buttons {
+
+	height: 300px;
+}
+
+/*#user_roles_block .ui-picklist-list {
+
+	height: 300px;
+}*/
+
+.user_selection {
+	flex: 1;
+}
+
+.user_field {
+	padding: 5px;
+}
+
+#user_save_btn_block {
+	justify-content: flex-end;
+}
+
+.role_list {
+    width: 100%;
+    flex: 1;
+    padding: 0px;
+}
+
+.role_selector {
+    margin: 0px 10px 0px 10px;
+	display: flex;
+    flex-basis: 200px;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.role_block_header {
+	text-align: center;
+}
+
+.role_btn_block {
+    margin: 10px 0px 10px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#role_edit_block {
+	flex: 1;
+	margin: 0px 10px 0px 10px;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}
+.role_edit {
+    DISPLAY: flex;
+    flex-direction: row;
+    flex: 1;
+    justify-content: space-between;
+}
+
+
+#role_main {
+   	padding-top: 10px;
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.role_act_list {
+	flex: 0.9;
+	display: flex;
+	flex-direction: column;
+}
+
+#role_save_btn_block {
+	justify-content: flex-end;
+}
+
+.role_act_list .ui-selectmanymenu {
+	width: 100%;
+	flex: 1;
+	padding: 0px;
+	
+}
+
+#role_block .ui-selectonelistbox {
+	width: 100%;
+	flex: 1;
+	padding: 0px;
+}
+
+.ui-selectlistbox-listcontainer {
+	height: auto !important;
+}

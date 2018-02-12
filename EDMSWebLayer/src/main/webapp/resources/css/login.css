@@ -1,0 +1,210 @@
+#html_login {
+    height: 100%;
+    overflow: auto;
+}
+
+#login_body, #restore_body {
+    background-image: url("#{resource['img:background.jpg']}");
+    background-position: center center;
+    background-size: 100% auto;
+    padding: 40px;
+}
+#html_login, #login_body, #html_restore, #restore_body {
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0;
+    overflow: auto;
+    padding: 0;
+    width: 100%;
+}
+#login_body {
+    background-color: #f1eee7;
+    height: 100%;
+    margin: 0 !important;
+}
+
+#login_body .panel, #restore_body .panel {
+    background-color: #fefefe;
+    border-radius: 7px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    margin: 150px auto 0;
+    max-width: 800px;
+    padding: 50px;
+    width: 100%;
+}
+
+#login_body .panel .row, #restore_body .panel .row {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+#login_body .panel .col:first-child, #restore_body .panel .col:first-child {
+    border-left: medium none;
+    padding-left: 5px;
+}
+#login_body .panel .col, #restore_body .panel .col {
+    border-left: 1px solid #e0e0e0;
+    display: table-cell;
+    padding: 0 40px;
+    vertical-align: top;
+}
+
+#login_body .panel .logo, #restore_body .panel .logo {
+    height: 37px;
+    margin-bottom: 20px;
+    width: 170px;
+}
+
+#login_body .panel .logo img, #restore_body .panel .logo img {
+    max-height: 37px;
+}
+
+#login_body .panel .col:last-child, #restore_body .panel .col:last-child {
+    padding-right: 5px;
+}
+
+#login_body .panel .col, #restore_body .panel .col {
+    border-left: 1px solid #e0e0e0;
+    display: table-cell;
+    padding: 0 40px;
+    vertical-align: top;
+}
+
+#login_body .panel .form-cell .table-view, #restore_body .panel .form-cell .table-view {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+#login_body .panel .form-cell .form-title, #restore_body .panel .form-cell .form-title {
+    margin-bottom: 18px;
+}
+
+#login_body .panel .form-cell .table-view .cell, #restore_body .panel .form-cell .table-view .cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#login_body .panel .form-cell .table-view .cell, #restore_body .panel .form-cell .table-view .cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+#login_body .text-right, #restore_body .text-right {
+    text-align: right;
+}
+
+#login_body .panel .form-cell .info, #restore_body .panel .form-cell .info {
+    text-decoration: none;
+}
+
+#login_body .panel .form-cell a, #restore_body .panel .form-cell a {
+    color: #000;
+    font-size: 11px;
+    text-decoration: underline;
+}
+
+
+#login_body .panel .form-cell input[type="text"], #restore_body .panel .form-cell input[type="text"], #login_body .panel .form-cell input[type="password"], #restore_body .panel .form-cell input[type="password"] {
+    border: 1px solid #d0d0d0;
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: #000;
+    font-size: 14px;
+    height: 34px;
+    line-height: 20px;
+    margin: 0 0 12px;
+    padding: 6px 17px;
+    width: 100%;
+}
+
+#login_body .panel .form-cell input[type="text"], #restore_body .panel .form-cell input[type="text"], #login_body .panel .form-cell input[type="password"], #restore_body .panel .form-cell input[type="password"] {
+    border: 1px solid #d0d0d0;
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: #000;
+    font-size: 14px;
+    height: 34px;
+    line-height: 20px;
+    margin: 0 0 12px;
+    padding: 6px 17px;
+    width: 100%;
+}
+
+#login_body .panel .form-cell h2, #restore_body .panel .form-cell h2 {
+    color: #000;
+    font-family: "Open Sans",sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+#login_body input[type="password"], #restore_body input[type="password"] {
+    font-family: Arial,sans-serif !important;
+}
+
+#login_body .panel .form-cell .table-view, #restore_body .panel .form-cell .table-view {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+#login_body .panel .form-cell .table-view .cell, #restore_body .panel .form-cell .table-view .cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#login_body .panel .form-cell a, #restore_body .panel .form-cell a {
+    color: #000;
+    font-size: 11px;
+    text-decoration: underline;
+}
+#login_body .panel .form-cell .table-view .cell, #restore_body .panel .form-cell .table-view .cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#login_body .text-right, #restore_body .text-right {
+    text-align: right;
+}
+
+
+#login_body .panel .form-cell .submit, #restore_body .panel .form-cell .submit {
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #13b43e 0%, #119b36 100%) repeat scroll 0 0;
+    border: medium none;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.7);
+    color: #fff;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 35px;
+    text-decoration: none;
+}
+
+#login_body .panel .form-cell .muted, #restore_body .panel .form-cell .muted {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 11px;
+    margin: 15px 0;
+}
+
+#login_body .panel .form-cell .muted, #restore_body .panel .form-cell .muted {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 11px;
+}
+
+
+#login_body .panel .form-cell .muted a, #restore_body .panel .form-cell .muted a {
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: bold;
+    text-decoration: underline;
+}
+#login_body .panel .form-cell a, #restore_body .panel .form-cell a {
+    color: #000;
+    font-size: 11px;
+    text-decoration: underline;
+}
+

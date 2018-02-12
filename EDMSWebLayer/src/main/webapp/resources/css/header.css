@@ -1,0 +1,27 @@
+
+#exit_btn {
+	background-image: url("#{resource['img:exit.png']}");	
+}
+
+#header_table {
+	display:table;
+	width: 100%;
+    box-sizing: content-box;
+}
+
+#logo {
+	display:table-cell;
+    padding: 20px;
+}
+
+#exit_form {
+	float: right;
+    vertical-align: top;
+	display:table-cell;
+}
+
+#hello_user {
+	display: table-cell;
+	padding: 10px;
+}
+

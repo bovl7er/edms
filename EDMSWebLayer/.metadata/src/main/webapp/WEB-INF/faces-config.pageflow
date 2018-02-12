@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14479271471650" configfile="/EDMSWebLayer/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf14479378347977" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14480103000280" inlinks="pf14480103795362" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="main.xhtml" id="pf14480103000281" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14480103000280" path="/main.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="main.xhtml" id="pf14480103795373" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14480103795362" path="main.xhtml"/>
+  <links id="pf14480103000280" target="pf14480103000281" source="pf14479378347977" outcome="admin"/>
+  <links id="pf14480103795362" target="pf14479378347977" source="pf14480103795373" outcome="login" fromaction="#{authController.logout}"/>
+</pageflow:Pageflow>

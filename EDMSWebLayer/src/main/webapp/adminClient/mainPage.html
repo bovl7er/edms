@@ -1,0 +1,79 @@
+<!DOCTYPE html >
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+		<script type="text/javascript" src="js/jquery-2.2.0.js"></script>
+		<script type="text/javascript" src="js/controller.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="js/jquery-ui-1.11.4.custom/jquery-ui.min.css">
+	</head>
+	<body>
+	
+		<div id="show_users" style="display : none">
+		<div id="pager" style="text-align: center;">
+			<a class="firstPage" title="Первая">&lt;&lt;</a>
+			<a class="prevPage" title="Предыдущая">&lt;</a>
+			<span class="pageSection">
+				Страница:
+			</span>
+			<a class="nextPage" title="Следующая">&gt;</a>
+			<a class="lastPage" title="Последняя">&gt;&gt;</a>
+			<br/>
+			<span class="rowsOnPageSection">
+				Клиентов на странице:
+				<select class="rowsOnPage">
+					<option value="5" selected="selected">5</option>
+					<option value="10" >10</option>
+					<option value="30">20</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
+			</span>
+			/
+			<span class="pagesSection">
+				Всего страниц:
+			</span>
+			/
+			<span class="rowsSection">
+				Всего клиентов:
+			</span>
+		</div>
+			<table id="user_list" style="width: 100%">
+				<th>Логин</th>
+				<th>Фио</th>
+				<th>Действия</th>
+			</table>
+			<button id="add_user">Добавить пользователя</button>
+		</div>
+	
+	
+		<div id="user_dialog" style="display : none">
+			
+			<span class="ui-state-error" id="user_errors"></span>
+			<input id="user_id" type="hidden"/>
+			
+			<table id="user_fields">
+				<tr>
+					<td>Логин</td>
+					<td>
+						<input id="user_login" />
+					</td>
+				</tr>
+				<tr>
+					<td>ФИО</td>
+					<td><input id="user_fio" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>Пароль</td>
+					<td><input id="user_password" /></td>
+				</tr>
+				<tr>
+					<td>Роли:</td>
+					<td id ="role_list"></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

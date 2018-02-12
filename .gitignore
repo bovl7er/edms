@@ -1,0 +1,11 @@
+/target/
+target/
+*.project
+.settings/
+*.classpath
+*/nb-configuration.xml
+nb-configuration.xml
+desktop.ini
+
+
+

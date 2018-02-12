@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library="css" name="document.css"/>
+        <title><h:outputText value="Документ № #{documentsController.docId}"></h:outputText></title>
+    </h:head>
+    <h:body>
+        <h:form id="editForm" enctype="multipart/form-data">
+            <p:outputPanel id="editTab1" rendered="#{editDocumentActionController.editAction == 'Просмотр'}">
+                <h:panelGrid  columns="2" columnClasses="name,field">
+                    <h:outputText value="Тема:"></h:outputText>
+                    <h:outputText value="#{documentsController.subject}"></h:outputText>
+                    <h:outputText value="Автор:"></h:outputText>
+                    <h:outputText value="#{documentsController.author}"></h:outputText>
+                    <h:outputText value="Поставленные задачи:"></h:outputText>
+                    <h:outputText value="#{documentsController.task}"></h:outputText>
+                    <h:outputText value="Дата создания:"></h:outputText>
+                    <h:outputText value="#{documentsController.date}"></h:outputText>
+                    <h:outputText value="Вложения документа:"></h:outputText>
+                    <h:panelGroup>
+                        <h:dataTable id ="editDataTable" value="#{documentsController.attachmentNames}" var="attachmentName">
+                            <h:column>
+                                <h:commandLink value="#{attachmentName}" action="#{documentsController.download()}">
+                                    <f:param name="attachmentName" value="#{attachmentName}"/> 
+                                </h:commandLink>
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGroup>
+                    <h:commandButton value="Закрыть" styleClass="submit editButton" action="#{documentsController.closeEditDocumentDialog()}"></h:commandButton>
+                    <h:commandButton id="editButton" value="Редактировать" styleClass="submit editButton" action="#{documentsController.editDocument}" rendered="#{documentsController.availableForSent}">
+                        <f:param name="editAction" value="Редактирование"/>
+                    </h:commandButton>
+                    <h:commandButton value="Отправить" action="#{documentsController.sentDocToReview()}" styleClass="submit editButton" rendered="#{documentsController.availableForSent}"></h:commandButton>
+                    <h:commandButton value="Принять" action="#{documentsController.acceptDocument()}" styleClass="submit editButton" rendered="#{documentsController.availableForAgreeOrCancel}"></h:commandButton>
+                    <h:commandButton value="На доработку" action="#{documentsController.cancelDocument()}" styleClass="submit editButton" rendered="#{documentsController.availableForAgreeOrCancel}"></h:commandButton>
+                </h:panelGrid>
+                
+            </p:outputPanel>
+            <p:outputPanel id="editTab2" rendered="#{editDocumentActionController.editAction == 'Редактирование'}">
+                <h:form id="form" enctype="multipart/form-data">
+                    <h:messages>
+
+                    </h:messages>
+                    <h:panelGrid columns="2" columnClasses="name,field">
+                        <h:outputText value="Тема:"></h:outputText>
+                        <h:panelGroup layout="block">
+                            <h:inputText id="document_subject" value="#{documentsController.subject}"/>
+                            <p:watermark for="document_subject" value="Тема документа" id="watermark_subject" />
+                        </h:panelGroup>
+                        <h:outputText value="Автор:"></h:outputText>
+                        <h:panelGroup layout="block">
+                            <h:inputText id="document_author" value="#{documentsController.author}"/>
+                            <p:watermark for="document_author" value="Имя составителя" id="watermark_author" />
+                        </h:panelGroup>
+                        <h:outputText value="Задача:"></h:outputText>
+                        <h:panelGroup layout="block">
+                            <h:inputTextarea id="document_task" value="#{documentsController.task}"/>
+                            <p:watermark for="document_task" value="Постановка задачи для заявления" id="watermark_task" />
+                        </h:panelGroup>
+                        <h:outputText value="Вложить документ:"></h:outputText>
+                        <h:inputFile id="file" value="#{documentsController.file}"/>
+                        <h:commandButton value="Закрыть" styleClass="submit editButton" action="#{documentsController.closeEditDocumentDialog()}"></h:commandButton>
+                        <h:commandButton value="Отправить" action="#{documentsController.updateDocument()}" styleClass="submit editButton" />
+                    </h:panelGrid>
+                </h:form>
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,224 @@
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:body id="main_body">
+        <h:panelGroup layout="block" id="tabContent">
+            <h:panelGroup layout="block" styleClass="creationDocument">
+                <h:form prependId="false" id="creationForm">
+                    <h:panelGrid columns="3">
+                        <h:panelGroup layout="block" id="newStatement" styleClass="newDocument">
+                            <h:panelGroup layout="block">
+                                <p:commandLink type="button" onclick="PF('createDlg').show();">
+                                    <h:graphicImage url="resources/img/document.ico" alt="Заявление" title="Заявление"></h:graphicImage>
+                                </p:commandLink>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="doc_text_div">
+                                <p:commandLink type="button" value="Заявление" onclick="PF('createDlg').show();" styleClass="creationLink"></p:commandLink>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" id="creationButtons">
+                            <h:panelGroup layout="block" id="reviewAllDocButton" styleClass="creationDiv creationButton">
+                                <h:commandButton  value="Отправить" rendered="#{documentsController.showForSent()}" actionListener="#{documentsController.sentAllDocsToReview}" styleClass="submit">
+                                    <f:ajax execute="@all" render="@form documentForm:dataGrid filterForm"/>
+                                </h:commandButton>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" id="acceptAllDocButton" styleClass="creationDiv creationButton">
+                                <h:commandButton value="Принять"  rendered="#{documentsController.showForAgreeOrCancel()}" actionListener="#{documentsController.acceptAllDocument}" styleClass="submit">
+                                    <f:ajax execute="@all" render="@form documentForm:dataGrid filterForm"/>
+                                </h:commandButton>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" id="refuseAllDocButton" styleClass="creationDiv creationButton">
+                                <h:commandButton value="На доработку" rendered="#{documentsController.showForAgreeOrCancel()}" actionListener="#{documentsController.cancelAllDocument}" styleClass="submit">
+                                    <f:ajax execute="@all" render="@form documentForm:dataGrid filterForm"/>
+                                </h:commandButton>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" id="deleteAllDocButton" styleClass="creationDiv creationButton">
+                                <h:commandButton value="Удалить" rendered="#{documentsController.showForSent()}" actionListener="#{documentsController.deleteAllDocument()}" styleClass="submit">
+                                    <f:ajax execute="@all" render="@form documentForm:dataGrid filterForm"/>
+                                </h:commandButton>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <h:messages id="errors"/>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="filter">
+                <h:form id="filterForm">
+                    <h:panelGrid columns="4" id="filterTable" style="width: 100%;">
+                        <h:panelGroup layout="block">
+                            <h:outputText value="Фильтр:"></h:outputText>
+                            <h:inputText id="filter_search_string" value="#{searchController.search}" styleClass="input" style="width: 200px"/>
+                            <p:watermark for="filter_search_string" value="Введите строку для поиска" id="watermark_search_string" />
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="filterDiv">
+                            <p:outputLabel for="startDate" value="с " styleClass="filterDiv" />
+                            <p:inputMask id="startDate" value="#{searchController.startDate}" mask="99.99.9999" style="width: 100px;" styleClass="filterDiv">
+                            <!--<h:inputText id="startDate" value="#{searchController.startDate}" style="width: 100px;" styleClass="filterDiv">-->
+                                <f:convertDateTime pattern="d.M.yyyy" />
+                            </p:inputMask>
+                            <!--</h:inputText>-->
+                            <p:outputLabel for="endDate" value="по " styleClass="filterDiv" />
+                            <p:inputMask id="endDate" value="#{searchController.endDate}" mask="99.99.9999" style="width: 100px;" styleClass="filterDiv">
+<!--                                        <h:inputText id="endDate" value="#{searchController.endDate}" style="width: 100px;" styleClass="filterDiv">-->
+                                <f:convertDateTime pattern="d.M.yyyy" />
+                            </p:inputMask>
+                            <!--                                        </h:inputText>-->
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="filterDiv">
+                            <h:outputText value="Тип:" rendered="#{mainPageController.shownType}"></h:outputText>
+                            <h:selectOneMenu value="#{searchController.docTypeId}" styleClass="filterDiv" rendered="#{mainPageController.shownType}">
+                                <f:selectItem itemValue="0" itemLabel="Все" />
+                                <f:selectItem itemValue="1" itemLabel="Архив" />	
+                                <f:selectItem itemValue="2" itemLabel="Заявление" />	
+                            </h:selectOneMenu>
+                        </h:panelGroup>
+                        <h:commandButton value="Показать" styleClass="submit filterButton filterDiv" actionListener="#{searchController.filter()}">
+                            <f:ajax execute="@all" render="documentForm:dataGrid"/>
+                        </h:commandButton>
+                        <h:panelGroup layout="block" styleClass="filterDiv" style="width: 200px;">
+                            <p:growl autoUpdate="true"/>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup layout="block" id="subTabContent">
+                <p:outputPanel id="docSubTab1">
+                    <h:form id="documentForm">
+                        <p:dataGrid id="dataGrid" var="document" value="#{mainPageController.lazyModel}" columns="5" layout="grid" paginator="true" rows="10"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                                    rowsPerPageTemplate="5,10,15,20" lazy="true">
+                            <p:ajax event="page" update="creationForm" listener="#{documentDataGridController.changeCheckState}"/>
+                            <p:panel>
+                                <h:panelGrid columns="1" style="width:100%">
+                                    <h:panelGroup layout="block" style="display: inline-block;margin: 5px;">
+                                        <h:panelGroup layout="block">
+                                            <p:commandLink id="openButton" process="@this" actionListener="#{documentsController.openDocument(document.docId)}" oncomplete="PF('editDlg').show();" update=":editDlg">
+                                                <h:graphicImage url="resources/img/doc.ico"/>
+                                            </p:commandLink>
+                                            <p:selectBooleanButton id="checkDocBut" value="#{documentDataGridController.checker}" onLabel="" offLabel="" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:15px">
+                                                <p:ajax update="creationForm" listener="#{documentDataGridController.setDocumentId(document.docId)}"/>
+                                            </p:selectBooleanButton>
+                                        </h:panelGroup>  
+                                        <h:panelGroup layout="block" styleClass="doc_text_div">
+                                            <h:outputText value="#{document.typeName} №"></h:outputText>
+                                            <h:outputText id="docIdValue" value="#{document.docId}"></h:outputText><br/>
+                                            <h:outputText value="#{document.authorName}"></h:outputText><br/>
+                                            <h:outputText value="#{documentsController.state}" rendered="#{documentsController.checkState(document.stateId)}"></h:outputText>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:dataGrid>
+                    </h:form>
+                </p:outputPanel>
+            </h:panelGroup>
+        </h:panelGroup>
+        <p:dialog id="createDlg" header="Создание нового документа" widgetVar="createDlg" showEffect="explode" hideEffect="bounce" 
+                  modal="true" height="300" width="520" resizable="true" draggable="true" closable="true">
+            <h:panelGroup id="creationDialog" layout="block" styleClass="main">
+                <h:form id="form" enctype="multipart/form-data">
+                    <h:panelGrid columns="2" columnClasses="name,field">
+                        <h:outputText value="Тема:"></h:outputText>
+                        <h:panelGroup layout="block">
+                            <h:inputText id="document_subject" value="#{documentsController.subject}" styleClass="input" required="true"/>
+                            <p:watermark for="document_subject" value="Тема документа" id="watermark_subject" />
+                        </h:panelGroup>
+                        <h:outputText value="Автор:"></h:outputText>
+                        <h:panelGroup layout="block">
+                            <h:inputText id="document_author" value="#{documentsController.author}" styleClass="input" required="true"/>
+                            <p:watermark for="document_author" value="Имя составителя документа,его должность" id="watermark_author" />
+                        </h:panelGroup>
+                        <h:outputText value="Задача:"></h:outputText>
+                        <h:panelGroup layout="block">
+                            <h:inputTextarea id="document_task" value="#{documentsController.task}" styleClass="input" required="true"/>
+                            <p:watermark for="document_task" value="Постановка задачи для заявления" id="watermark_task" />
+                        </h:panelGroup>
+                        <h:outputText value="Вложить документ:"></h:outputText>
+                        <h:inputFile id="file" value="#{documentsController.file}"/>
+                        <h:panelGroup></h:panelGroup>
+  <!--                        <p:commandButton  actionListener="#{documentsController.createDocument}" value="Создать документ" styleClass="submit input" />-->
+                        <h:commandButton actionListener="#{documentsController.createDocument}" value="Создать документ" styleClass="submit input">
+                            <f:ajax execute="@all" render="@form documentForm:dataGrid filterForm"/>
+                        </h:commandButton>
+                        <h:panelGroup></h:panelGroup>
+                        <h:commandButton value="Закрыть" styleClass="submit input" onclick="PF('createDlg').hide()">
+                            <f:ajax render="@form"/>
+                        </h:commandButton>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGroup>
+        </p:dialog>
+        <p:dialog id="editDlg" header="Документ № #{documentsController.docId}" widgetVar="editDlg" showEffect="explode" hideEffect="bounce" 
+                  modal="true" height="300" width="520" resizable="true" draggable="true" closable="true">
+            <h:form id="editForm" enctype="multipart/form-data">
+                <p:outputPanel id="editTab1" rendered="#{editDocumentActionController.editAction == 'Просмотр'}">
+                    <h:panelGrid  columns="2" columnClasses="name,field">
+                        <h:outputText value="Тема:"></h:outputText>
+                        <h:outputText value="#{documentsController.subject}"></h:outputText>
+                        <h:outputText value="Автор:"></h:outputText>
+                        <h:outputText value="#{documentsController.author}"></h:outputText>
+                        <h:outputText value="Поставленные задачи:"></h:outputText>
+                        <h:outputText value="#{documentsController.task}"></h:outputText>
+                        <h:outputText value="Дата создания:"></h:outputText>
+                        <h:outputText value="#{documentsController.date}"></h:outputText>
+                        <h:outputText value="Вложения документа:"></h:outputText>
+                        <h:panelGroup>
+                            <h:dataTable id ="editDataTable" value="#{fileDownloadView.attachmentNames}" var="attachmentName">
+                                <h:column>
+                                    <h:commandLink value="#{attachmentName}" action="#{fileDownloadView.download()}">
+                                        <f:param name="attachmentName" value="#{attachmentName}"/> 
+                                    </h:commandLink>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                        <p:commandButton value="Закрыть" styleClass="submit editButton" onclick="PF('editDlg').hide()"></p:commandButton>
+                        <p:commandButton id="editButton" update=":editDlg" value="Редактировать" styleClass="submit editButton" action="#{documentsController.editDocument}" rendered="#{documentsController.availableForSent}" oncomplete="PF('editDlg').show();">
+                            <f:param name="editAction" value="Редактирование"/>
+                        </p:commandButton>
+                        <p:commandButton id="sentDocument" value="Отправить" action="#{documentsController.sentDocToReview()}" onclick="PF('editDlg').hide()" styleClass="submit editButton" rendered="#{documentsController.availableForSent}" update="docSubTab1"></p:commandButton>
+                        <p:commandButton id="deleteDocument" value="Удалить" action="#{documentsController.deleteDocument}" onclick="PF('editDlg').hide()" styleClass="submit editButton" rendered="#{documentsController.availableForSent}" update="docSubTab1"></p:commandButton>
+                        <p:commandButton value="Принять" action="#{documentsController.acceptDocument()}" onclick="PF('editDlg').hide()" styleClass="submit editButton" rendered="#{documentsController.availableForAgreeOrCancel}" update="docSubTab1"></p:commandButton>
+                        <p:commandButton value="На доработку" action="#{documentsController.cancelDocument()}" onclick="PF('editDlg').hide()" styleClass="submit editButton" rendered="#{documentsController.availableForAgreeOrCancel}" update="docSubTab1"></p:commandButton>
+                    </h:panelGrid>
+
+                </p:outputPanel>
+                <p:outputPanel id="editTab2" rendered="#{editDocumentActionController.editAction == 'Редактирование'}">
+                    <h:form id="form" enctype="multipart/form-data">
+                        <h:messages>
+
+                        </h:messages>
+                        <h:panelGrid columns="2" columnClasses="name,field">
+                            <h:outputText value="Тема:"></h:outputText>
+                            <h:panelGroup layout="block">
+                                <h:inputText id="document_subject" value="#{documentsController.subject}"/>
+                                <p:watermark for="document_subject" value="Тема документа" id="watermark_subject" />
+                            </h:panelGroup>
+                            <h:outputText value="Автор:"></h:outputText>
+                            <h:panelGroup layout="block">
+                                <h:inputText id="document_author" value="#{documentsController.author}"/>
+                                <p:watermark for="document_author" value="Имя составителя" id="watermark_author" />
+                            </h:panelGroup>
+                            <h:outputText value="Задача:"></h:outputText>
+                            <h:panelGroup layout="block">
+                                <h:inputTextarea id="document_task" value="#{documentsController.task}"/>
+                                <p:watermark for="document_task" value="Постановка задачи для заявления" id="watermark_task" />
+                            </h:panelGroup>
+                            <h:outputText value="Вложить документ:"></h:outputText>
+                            <h:inputFile id="file" value="#{documentsController.file}"/>
+                            <p:commandButton value="Закрыть" styleClass="submit editButton" onclick="PF('editDlg').hide()"></p:commandButton>
+                            <h:commandButton value="Отправить" actionListener="#{documentsController.updateDocument()}" onclick="PF('editDlg').hide()" styleClass="submit editButton ui-state-default" >
+                                <f:ajax execute="@all" render="@form documentForm:dataGrid" />
+                            </h:commandButton>
+                        </h:panelGrid>
+                    </h:form>
+                </p:outputPanel>
+            </h:form>          
+        </p:dialog>
+    </h:body>
+</html>

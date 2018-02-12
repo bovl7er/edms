@@ -1,0 +1,61 @@
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+	<h:panelGroup id="role_main"  layout="block">
+		<h:form id="role_block" styleClass="role_selector">
+			<div class="role_block_header ui-widget-header">Выберите роль</div>
+			<p:selectOneListbox 
+					styleClass="role_list"
+			 		id="role_selection" 
+		            filter="true" 
+		            filterMatchMode="contains"
+		            value="#{roleManager.selectedRoleId}">
+				<p:ajax  event="change"
+						update="@(#role_edit_block)"
+		        		listener="#{roleManager.initRoleEdit()}"/>
+		        		
+	            <f:selectItems value="#{roleManager.allRoles}" var="role"
+	 					itemLabel="#{role.roleName}" itemValue="#{role.roleId}">	
+	 			</f:selectItems>
+	    	</p:selectOneListbox>
+	    	
+		   	<div id="role_btns" class="role_btn_block">
+				<p:commandButton value="Добавить" update=":role_edit_block" actionListener="#{roleManager.initCreateRole()}"></p:commandButton>
+				<p:commandButton value="Удалить" update="role_selection :role_edit_block" actionListener="#{roleManager.deleteRole()}"></p:commandButton>
+	    	</div>
+		</h:form>
+		<h:form id="role_edit_block">
+			<div class="role_block_header ui-widget-header">
+				<h:outputLabel id="role_edit_label" value="#{roleManager.editRoleLabel}" />
+			</div>
+			<h:panelGroup id="role_edit"  styleClass="role_edit" layout="block">
+				<div id="role_fields">
+					<h:inputHidden id="role_id" value="#{roleManager.roleId}" />
+		            <div>
+		            	<h:outputLabel for="roleName" value="Название роли:" />
+		            </div>
+		            <p:inputText id="roleName" value="#{roleManager.roleName}" />
+					
+					
+					
+				</div>
+				<div class="role_act_list">
+					<div class="role_block_header ui-widget-header">Назначенные действия</div>
+			        <p:selectManyMenu id="basic" value="#{roleManager.selectedRights}" showCheckbox="true">
+						<f:selectItems value="#{roleManager.allRights}" var="right" itemLabel="#{right.value}" itemValue="#{right.rightId}" />
+			        </p:selectManyMenu>
+				</div>
+
+
+			</h:panelGroup>
+			<p:messages id="role_update_messages" showDetail="true" closable="true" />
+			<div id="role_save_btn_block" class="role_btn_block">
+					<p:commandButton value="Сохранить" actionListener="#{roleManager.saveRole()}"  update="role_update_messages role_edit_block :role_block:role_selection" />
+			</div>
+			
+		</h:form>
+	</h:panelGroup>
+</html>
